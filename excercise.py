@@ -107,14 +107,22 @@ def errors(previous, next):
     return movement < 0.0000001, movement
 
 
-def print_progress(plot, data_set, centroids, title, num_steps) :
-    for i in range(3):
+def print_progress(plot, data_set, centroids, title, num_steps, k) :
+
+    if k == 2:
         for data in data_set:
-            if data.name == i:
-                plot.scatter(data.petal_lengths, data.petal_widths, c="g" if i == 0 else ("r" if i == 1 else "b"))
+            if data.name == 0:
+                plot.scatter(data.petal_lengths, data.petal_widths, c="g")
+            else:
+                plot.scatter(data.petal_lengths, data.petal_widths, c="r")
+    else:
+        for i in range(k):
+            for data in data_set:
+                if data.name == i:
+                    plot.scatter(data.petal_lengths, data.petal_widths, c="g" if i == 0 else ("r" if i == 1 else "b"))
 
     for i in range(len(centroids)):
-        plt.scatter(centroids[i][2], centroids[i][3], c="k")
+        plt.scatter(centroids[i][2], centroids[i][3], c="y")
     plot.set_title(title + f" After {num_steps} steps")
     plot.set_ylabel('Petal Width')
     plot.set_xlabel('Petal Length')
@@ -175,10 +183,10 @@ def kmeans(data_set, k) :
 
     fig = plt.figure(1, (10, 9))
 
-    print_progress(fig.add_subplot(221), data_set, list_of_centroids[0], "Initial Cluster", 0)
-    print_progress(fig.add_subplot(222), data_set, list_of_centroids[int(num_steps / 2)], "Intermediate Cluster", int(num_steps / 2))
+    print_progress(fig.add_subplot(221), data_set, list_of_centroids[0], "Initial Cluster", 0, k)
+    print_progress(fig.add_subplot(222), data_set, list_of_centroids[int(num_steps / 2)], "Intermediate Cluster", int(num_steps / 2), k)
     fig_final = fig.add_subplot(223)
-    print_progress(fig_final, data_set, list_of_centroids[int(num_steps)], "Converged Cluster", int(num_steps))
+    print_progress(fig_final, data_set, list_of_centroids[int(num_steps)], "Converged Cluster", int(num_steps), k)
     final_centroid = list_of_centroids[int(num_steps)]
 
     pairs = pair_generator(final_centroid)
