@@ -33,7 +33,7 @@ def gradient_computation(iris, weights, names, output):
             gradient[0] += derivative * 1
             gradient[1] += derivative * float(x)
             gradient[2] += derivative * float(y)
-    epsilon = .25
+    epsilon = .35
     for i in range(0, len(gradient)):
         gradient[i] = (gradient[i] * 2) / num_points
         change = gradient[i] * epsilon
@@ -44,14 +44,14 @@ def gradient_computation(iris, weights, names, output):
 def main():
     # data initialization
     data_set = open_file('irisdata.csv')
-    colors_maps = {"virginica" : "blue", "versicolor" : "green", "setosa" : "red"}
+    colors_maps = {"virginica" : "red", "versicolor" : "blue", "setosa" : "green"}
     iris = iris_object(data_set, colors_maps)
-    expected_output = {'green': 0, 'blue': 1}
-    cols = ['green', 'blue']
+    expected_output = {'blue': 0, 'red': 1}
+    cols = ['blue', 'red']
     # weight initialization of small and large error
     small_error_weights = [-11, 1.25, 2.9]
     large_error_weights = [-3.0, 0.23, 1.9]
-    target_input = {'0': 'green', '1': 'blue'}
+    target_input = {'0': 'blue', '1': 'red'}
 
     # Question 3b
     small_error_classes = simple_classifier(iris, small_error_weights, cols, target_input)

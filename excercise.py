@@ -98,18 +98,8 @@ def update_centroids(data_set, labels, k) :
     return updated_centroids
 
 
-def objective_function(data_set, centroids, names):
-    output = 0
-    for data in data_set:
-        sum = 0
-        for centroid in centroids:
-            for name in names:
-                if name == data.name:
-                    sum += name * (((data.sepal_length - centroid[0]) ** 2) + ((data.sepal_width - centroid[1]) ** 2) +
-                               (data.petal_lengths - centroid[2]) ** 2 + (data.petal_widths - centroid[3]) ** 2)
-        output += sum
-
-    return output
+# def objective_function(data_set, centroids, labels):
+#     return np.sum(np.square(data_set - centroids[0]))
 
 
 def errors(previous, next):
@@ -121,12 +111,12 @@ def errors(previous, next):
 
 
 def print_progress(plot, data_set, centroids, title, num_steps) :
-    for i in range(3) :
-        for data in data_set :
-            if data.name == i :
-                plot.scatter(data.petal_lengths, data.petal_widths, c="r" if i == 0 else ("b" if i == 1 else "g"))
+    for i in range(3):
+        for data in data_set:
+            if data.name == i:
+                plot.scatter(data.petal_lengths, data.petal_widths, c="g" if i == 0 else ("r" if i == 1 else "b"))
 
-    for i in range(len(centroids)) :
+    for i in range(len(centroids)):
         plt.scatter(centroids[i][2], centroids[i][3], c="k")
     plot.set_title(title + f" After {num_steps} steps")
     plot.set_ylabel('Petal Width')
@@ -171,8 +161,6 @@ def kmeans(data_set, k) :
     centroids = initialize_centroids(data_set, k)
     stopping_criteria = False
 
-    names = [0, 1, 2]
-
     list_of_centroids = [centroids]
     num_steps = 0
     question_one_b_output = []
@@ -183,7 +171,7 @@ def kmeans(data_set, k) :
         list_of_centroids.append(centroids)
         num_steps += 1
         stop, error = errors(previous_centroids, centroids)
-        question_one_b_output.append(objective_function(data_set, centroids, names))
+        # question_one_b_output.append(objective_function(data_set, centroids, labels))
         if stop:
             stopping_criteria = True
 
@@ -203,9 +191,9 @@ def kmeans(data_set, k) :
     for coord in coordinates:
         fig_final.plot(coord[0], coord[1])
     plt.show()
-    plt.scatter(range(0, num_steps), question_one_b_output)
-    plt.grid(True)
-    plt.show()
+    # plt.scatter(range(0, num_steps), question_one_b_output)
+    # plt.grid(True)
+    # plt.show()
 
 
 def main() :

@@ -30,13 +30,13 @@ def iris_object(data, color_map) :
 
 
 def scatter_plot(plot, iris_objects, names, title):
-    blue_patch = patches.Patch(color='blue', label='Virginica')
-    green_patch = patches.Patch(color='green', label='Versicolor')
+    red_patch = patches.Patch(color='red', label='Virginica')
+    blue_patch = patches.Patch(color='blue', label='Versicolor')
 
     for name in names :
         plot.scatter(iris_objects[name].petal_lengths, iris_objects[name].petal_widths, c=name, alpha=0.5)
 
-    plot.legend(handles=[green_patch, blue_patch], loc='lower right')
+    plot.legend(handles=[blue_patch, red_patch], loc='lower right')
     plot.set_ylim([0.9, 2.6])
     plot.set_xlim([2.5, 7.5])
     plot.set_title(title)
@@ -107,11 +107,11 @@ def simple_classifier(iris_objects, weights, names, desired_class) :
 def main() :
     # Initialization of data
     data_set = open_file('irisdata.csv')
-    colors_maps = {"virginica" : "blue", "versicolor" : "green", "setosa" : "red"}
+    colors_maps = {"virginica" : "red", "versicolor" : "blue", "setosa" : "green"}
     iris = iris_object(data_set, colors_maps)
-    cols = ['green', 'blue']
+    cols = ['blue', 'red']
     weights = [-11, 1.25, 2.9]
-    target_input = {'0': 'green', '1': 'blue'}
+    target_input = {'0': 'blue', '1': 'red'}
 
     # Question 2a
     fig = plt.figure(1, (10, 9))

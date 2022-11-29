@@ -17,7 +17,7 @@ def gradient_descent(iris, weights, colors, outputs) :
     list_of_weights = [weights, weights]
     steps = 1
 
-    while errors[steps - 1] - errors[steps] > 0.00000025 :
+    while errors[steps - 1] - errors[steps] > 0.000001:
         previous = list_of_weights[steps].copy()
         updated_weights = gradient_computation(iris, previous, colors, outputs)
         list_of_weights.append(updated_weights)
@@ -28,17 +28,19 @@ def gradient_descent(iris, weights, colors, outputs) :
 
 
 def random_weight_generator() :
-    return [-1 - random.random() * 11, random.random() * 2, random.random() * 6]
+    return [-1 - random.random() * 10, random.random() * 3, random.random() * 6]
 
 
 def main() :
+    # data initialization
     data_set = open_file('irisdata.csv')
-    colors_set = {"virginica" : "blue", "versicolor" : "green", "setosa" : "red"}
+    colors_set = {"virginica" : "red", "versicolor" : "blue", "setosa" : "green"}
     iris = iris_object(data_set, colors_set)
-    colors = ['green', 'blue']
-    expected_output = {'green': 0, 'blue': 1}
+    colors = ['blue', 'red']
+    expected_output = {'blue': 0, 'red': 1}
     weight_set = [-11, 1.25, 2.9]
 
+    # Question b
     output_b, steps_b, errors_b = gradient_descent(iris, weight_set, colors, expected_output)
 
     fig_b = plt.figure(3, figsize=(10, 9))
@@ -64,6 +66,7 @@ def main() :
     fig_obj.grid(True)
     plt.show()
 
+    # Question c
     output_c, steps_c, errors_c = gradient_descent(iris, random_weight_generator(), colors, expected_output)
     fig_c = plt.figure(3, figsize=(10, 9))
     fig_c.subplots_adjust(hspace=0.35)
@@ -79,6 +82,7 @@ def main() :
     scatter_plot(fig_final_c, iris, colors, f"After {int(len(output_c))}")
     line_plot(fig_final_c, output_c[int(len(output_c) - 1)])
     plt.show()
+
 
 if __name__ == "__main__" :
     main()
