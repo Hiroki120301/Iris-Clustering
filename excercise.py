@@ -78,7 +78,7 @@ def get_labels(data_set, centroids) :
                 label = i
         labels.append(label)
 
-    return labels
+    return np.array(labels)
 
 
 def update_centroids(data_set, labels, k) :
@@ -99,9 +99,6 @@ def update_centroids(data_set, labels, k) :
 
 
 # def objective_function(data_set, centroids, labels):
-#     return np.sum(np.square(data_set - centroids[0]))
-
-
 def errors(previous, next):
     movement = 0
     for prev, nxt in zip(previous, next) :
@@ -171,29 +168,31 @@ def kmeans(data_set, k) :
         list_of_centroids.append(centroids)
         num_steps += 1
         stop, error = errors(previous_centroids, centroids)
-        # question_one_b_output.append(objective_function(data_set, centroids, labels))
+        question_one_b_output.append(error)
+
         if stop:
             stopping_criteria = True
 
     fig = plt.figure(1, (10, 9))
 
     print_progress(fig.add_subplot(221), data_set, list_of_centroids[0], "Initial Cluster", 0)
-
     print_progress(fig.add_subplot(222), data_set, list_of_centroids[int(num_steps / 2)], "Intermediate Cluster", int(num_steps / 2))
-
     fig_final = fig.add_subplot(223)
     print_progress(fig_final, data_set, list_of_centroids[int(num_steps)], "Converged Cluster", int(num_steps))
-
     final_centroid = list_of_centroids[int(num_steps)]
 
     pairs = pair_generator(final_centroid)
     coordinates = equidistance(pairs)
     for coord in coordinates:
         fig_final.plot(coord[0], coord[1])
+
+    fig_err = fig.add_subplot(224)
+    fig_err.plot(range(0, num_steps), question_one_b_output)
+    fig_err.set_xlabel("Number of Iterations")
+    fig_err.set_ylabel("Error")
+    fig_err.set_title(f"Decrease in Error Over Iterations For K = {k}")
+    plt.grid(True)
     plt.show()
-    # plt.scatter(range(0, num_steps), question_one_b_output)
-    # plt.grid(True)
-    # plt.show()
 
 
 def main() :
