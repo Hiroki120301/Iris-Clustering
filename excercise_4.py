@@ -1,4 +1,6 @@
 import random
+
+import numpy as np
 from matplotlib import pyplot as plt
 from excercise import open_file
 from excercise_2 import scatter_plot, line_plot, iris_object
@@ -28,7 +30,7 @@ def gradient_descent(iris, weights, colors, outputs) :
 
 
 def random_weight_generator() :
-    return [-1 - random.random() * 10, random.random() * 3, random.random() * 6]
+    return [-1 - random.random() * 12, random.random() * 3, random.random() * 6]
 
 
 def main() :

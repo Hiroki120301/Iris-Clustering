@@ -69,7 +69,7 @@ def single_layer(inputs, weights) :
     return 1 / res
 
 
-def surface_plot(plot, weights, title) :
+def surface_plot(plot, weights) :
     width = np.linspace(0, 4, 100)
     length = np.linspace(0, 7.5, 100)
     x_axis, y_axis = np.meshgrid(length, width)
@@ -83,10 +83,10 @@ def surface_plot(plot, weights, title) :
     graph_outputs = np.array(outputs)
 
     plot.set_zlim([0, 1])
-    plot.plot_surface(x_axis, y_axis, graph_outputs, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    plot.plot_surface(x_axis, y_axis, graph_outputs, cmap=cm.seismic)
     plot.set_ylabel('Petal Width (cm)')
     plot.set_xlabel('Petal Length (cm)')
-    plot.set_title(title)
+    plot.set_title('Surface Plot')
 
 
 def simple_classifier(iris_objects, weights, names, desired_class) :
@@ -124,7 +124,7 @@ def main() :
     line_plot(fig_question_c, weights)
 
     # Question 2d
-    surface_plot(fig.add_subplot(223, projection='3d'), weights, 'Surface Plot')
+    surface_plot(fig.add_subplot(223, projection='3d'), weights)
 
     # Question 2e
     decision_class = simple_classifier(iris, weights, cols, target_input)

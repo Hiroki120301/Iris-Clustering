@@ -122,7 +122,7 @@ def print_progress(plot, data_set, centroids, title, num_steps, k) :
                     plot.scatter(data.petal_lengths, data.petal_widths, c="g" if i == 0 else ("r" if i == 1 else "b"))
 
     for i in range(len(centroids)):
-        plt.scatter(centroids[i][2], centroids[i][3], c="y")
+        plt.scatter(centroids[i][2], centroids[i][3], c="cyan")
     plot.set_title(title + f" After {num_steps} steps")
     plot.set_ylabel('Petal Width')
     plot.set_xlabel('Petal Length')
@@ -199,6 +199,7 @@ def kmeans(data_set, k) :
     fig_err.set_xlabel("Number of Iterations")
     fig_err.set_ylabel("Error")
     fig_err.set_title(f"Decrease in Error Over Iterations For K = {k}")
+
     plt.grid(True)
     plt.show()
 
